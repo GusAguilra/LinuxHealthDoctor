@@ -149,10 +149,10 @@ func (m Model) renderOverview() string {
 	} else {
 		col = "#E84A4A"
 	}
-	b.WriteString(fmt.Sprintf("  Overall Status: %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color(col)).Render(status)))
+	fmt.Fprintf(&b, "  Overall Status: %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color(col)).Render(status))
 
 	if m.components == nil {
-		b.WriteString(fmt.Sprintf("\n  %s Running checks...\n", m.spinner.View()))
+		fmt.Fprintf(&b, "\n  %s Running checks...\n", m.spinner.View())
 		return b.String()
 	}
 
@@ -170,7 +170,7 @@ func (m Model) renderOverview() string {
 		b.WriteString("  ")
 		b.WriteString(m.styles.Error.Render(fmt.Sprintf("✗ %d Failed/Errors", failed+errored)))
 	}
-	b.WriteString(fmt.Sprintf("\n  %d total checks\n\n", total))
+	fmt.Fprintf(&b, "\n  %d total checks\n\n", total)
 
 	// Only show components that have issues
 	hasIssues := false
@@ -197,7 +197,7 @@ func (m Model) renderOverview() string {
 			label = string(s.Component)
 		}
 		b.WriteString(m.styles.Error.Render(fmt.Sprintf("  ✗ %s", label)))
-		b.WriteString(fmt.Sprintf("  — %d/%d\n", s.Passed, s.Total))
+		fmt.Fprintf(&b, "  — %d/%d\n", s.Passed, s.Total)
 		for _, d := range s.Details {
 			if d.Status == "pass" {
 				continue
@@ -262,7 +262,7 @@ func (m Model) renderGauge(score float64) string {
 func (m Model) renderChecks() string {
 	var b strings.Builder
 	if m.components == nil {
-		b.WriteString(fmt.Sprintf("\n  %s Running checks...\n", m.spinner.View()))
+		fmt.Fprintf(&b, "\n  %s Running checks...\n", m.spinner.View())
 		return b.String()
 	}
 

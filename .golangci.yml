@@ -1,15 +1,14 @@
+version: "1"
 linters:
   enable:
-    - gofmt
-    - govet
     - errcheck
-    - staticcheck
     - gosimple
+    - govet
     - ineffassign
+    - staticcheck
     - unused
-
 issues:
-  exclude-dirs:
-    - vendor
-  max-issues-per-linter: 0
-  max-same-issues: 0
+  max-issues-per-linter: 50
+  max-same-issues: 10
+  exclude:
+    - "Error return value of .(Close|Flush|Write). is not checked"

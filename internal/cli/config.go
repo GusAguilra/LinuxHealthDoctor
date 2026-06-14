@@ -118,7 +118,9 @@ func NewConfigValidateCmd() *cobra.Command {
 			if err := enc.Encode(cfg); err != nil {
 				return fmt.Errorf("encode config: %w", err)
 			}
-			enc.Close()
+			if err := enc.Close(); err != nil {
+				return fmt.Errorf("close encoder: %w", err)
+			}
 			return nil
 		},
 	}
