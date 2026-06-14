@@ -129,7 +129,7 @@ func (m Model) renderOverview() string {
 	b.WriteString(m.renderGauge(m.healthScore))
 	b.WriteString("\n\n")
 
-	status := "Excellent"
+	var status string
 	switch {
 	case m.healthScore >= 90:
 		status = "Excellent"
@@ -481,7 +481,7 @@ func formatServiceCriticalDetail(d map[string]interface{}) []string {
 	stopped, _ := d["stopped"].([]string)
 	var lines []string
 	if len(stopped) > 0 {
-		lines = append(lines, fmt.Sprintf("Stopped services:"))
+		lines = append(lines, "Stopped services:")
 		for _, s := range stopped {
 			lines = append(lines, fmt.Sprintf("  %s", s))
 		}

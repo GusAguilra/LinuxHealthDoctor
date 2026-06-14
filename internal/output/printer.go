@@ -24,7 +24,7 @@ func (p *Printer) PrintResult(result *core.AggregatedResult) {
 func (p *Printer) FormatResult(result *core.AggregatedResult) string {
 	var b strings.Builder
 
-	b.WriteString(fmt.Sprintf("\n=== Linux Health Doctor ===\n"))
+	b.WriteString("\n=== Linux Health Doctor ===\n")
 	b.WriteString(fmt.Sprintf("Health Score: %.1f/100\n", result.HealthScore))
 	b.WriteString(fmt.Sprintf("Checks: %d total | %d passed | %d failed | %d errors | %d skipped\n",
 		result.TotalChecks, result.PassedChecks, result.FailedChecks,

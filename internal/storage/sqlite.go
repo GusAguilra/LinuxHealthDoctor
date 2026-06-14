@@ -545,7 +545,7 @@ func scanMetric(row scannable) (*core.Metric, error) {
 		Unit:      unit,
 		Timestamp: timestamp,
 	}
-	json.Unmarshal([]byte(labelsStr), &m.Labels)
+	_ = json.Unmarshal([]byte(labelsStr), &m.Labels)
 	return m, nil
 }
 
@@ -566,6 +566,6 @@ func scanEvent(row scannable) (*core.Event, error) {
 		Message:   message,
 		Timestamp: timestamp,
 	}
-	json.Unmarshal([]byte(dataStr), &e.Data)
+	_ = json.Unmarshal([]byte(dataStr), &e.Data)
 	return e, nil
 }
