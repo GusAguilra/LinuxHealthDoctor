@@ -84,7 +84,6 @@ type Model struct {
 	help         help.Model
 	tick         *time.Ticker
 	viewport     viewport.Model
-	content      string
 }
 
 func (m Model) tabs() []Tab {
@@ -194,10 +193,6 @@ func (m *Model) buildTabContent() string {
 		return m.renderAbout()
 	}
 	return ""
-}
-
-func (m *Model) rebuildContent() {
-	m.viewport.SetContent(m.buildTabContent())
 }
 
 func (m Model) Init() tea.Cmd {

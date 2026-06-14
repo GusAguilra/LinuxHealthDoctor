@@ -62,10 +62,10 @@ func (s *Scheduler) Start(ctx context.Context) {
 	for _, job := range s.jobs {
 		if job.Enabled {
 			j := job
-			s.cron.AddFunc(j.Schedule, func() {
+			_, _ = s.cron.AddFunc(j.Schedule, func() {
 				ctx, cancel := context.WithTimeout(ctx, 30*time.Minute)
 				defer cancel()
-				j.Func(ctx)
+				_ = j.Func(ctx)
 			})
 		}
 	}

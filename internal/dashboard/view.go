@@ -596,11 +596,6 @@ func formatDNSDetail(d map[string]interface{}) []string {
 	return []string{fmt.Sprintf("  %d/%d hosts resolved", r, len(hosts))}
 }
 
-func formatLogErrorsDetail(d map[string]interface{}) []string {
-	return nil
-}
-
-
 // ---------- Monitor ----------
 
 func (m Model) renderMonitor() string {

@@ -16,7 +16,6 @@ type ExecutionContext struct {
 	eventBus    core.EventBus
 	checkers    []Checker
 	layers      [][]Checker
-	results     []*core.CheckResult
 	mu          sync.Mutex
 	maxParallel int
 	timeout     time.Duration

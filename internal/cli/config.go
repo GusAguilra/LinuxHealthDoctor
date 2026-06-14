@@ -114,7 +114,11 @@ func NewConfigValidateCmd() *cobra.Command {
 				return fmt.Errorf("invalid configuration: %w", err)
 			}
 			fmt.Printf("Configuration valid: %s\n", path)
-			yaml.NewEncoder(os.Stdout).Encode(cfg)
+			enc := yaml.NewEncoder(os.Stdout)
+			if err := enc.Encode(cfg); err != nil {
+				return fmt.Errorf("encode config: %w", err)
+			}
+			enc.Close()
 			return nil
 		},
 	}

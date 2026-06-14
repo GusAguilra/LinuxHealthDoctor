@@ -523,10 +523,10 @@ func scanCheckResult(row scannable) (*core.CheckResult, error) {
 	if checkErr != "" {
 		r.Error = fmt.Errorf("%s", checkErr)
 	}
-	json.Unmarshal([]byte(detailsStr), &r.Details)
-	json.Unmarshal([]byte(metricsStr), &r.Metrics)
-	json.Unmarshal([]byte(remediationStr), &r.Remediation)
-	json.Unmarshal([]byte(evidenceStr), &r.Evidence)
+	_ = json.Unmarshal([]byte(detailsStr), &r.Details)
+	_ = json.Unmarshal([]byte(metricsStr), &r.Metrics)
+	_ = json.Unmarshal([]byte(remediationStr), &r.Remediation)
+	_ = json.Unmarshal([]byte(evidenceStr), &r.Evidence)
 	return r, nil
 }
 
