@@ -1,0 +1,99 @@
+version: 2
+
+project_name: lhd
+
+before:
+  hooks:
+    - go mod tidy
+    - go mod verify
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+      - "386"
+    ldflags:
+      - -s -w
+      - -X github.com/linuxhealthdoctor/lhd/pkg/version.Version={{.Version}}
+      - -X github.com/linuxhealthdoctor/lhd/pkg/version.Commit={{.Commit}}
+      - -X github.com/linuxhealthdoctor/lhd/pkg/version.Date={{.Date}}
+    binary: lhd
+
+archives:
+  - format: tar.gz
+    name_template: "lhd_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+
+nfpms:
+  - package_name: lhd
+    homepage: https://github.com/linuxhealthdoctor/lhd
+    maintainer: Linux Health Doctor Team
+    description: Linux system health diagnostics and root-cause analysis platform
+    license: MIT
+    formats:
+      - deb
+      - rpm
+      - apk
+    bindir: /usr/bin
+    contents:
+      - src: ./examples/lhd.yaml
+        dst: /etc/lhd/lhd.yaml
+        type: config
+
+brews:
+  - name: lhd
+    repository:
+      owner: linuxhealthdoctor
+      name: homebrew-tap
+    homepage: https://github.com/linuxhealthdoctor/lhd
+    description: Linux system health diagnostics and root-cause analysis platform
+    license: MIT
+
+dockers:
+  - image_templates:
+      - "ghcr.io/linuxhealthdoctor/lhd:{{ .Version }}"
+      - "ghcr.io/linuxhealthdoctor/lhd:latest"
+    use: buildx
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.title=Linux Health Doctor"
+      - "--label=org.opencontainers.image.description=Linux system health diagnostics and root-cause analysis platform"
+      - "--label=org.opencontainers.image.source=https://github.com/linuxhealthdoctor/lhd"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+
+sboms:
+  - artifacts: archive
+    documents:
+      - "lhd_{{ .Version }}.sbom"
+
+signs:
+  - cmd: cosign
+    artifacts: all
+    output: true
+    args:
+      - sign-blob
+      - --output-signature=${signature}
+      - --output-certificate=${certificate}
+      - ${artifact}

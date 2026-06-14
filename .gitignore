@@ -1,0 +1,47 @@
+# Binaries
+build/
+lhd
+lhd.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output of go coverage
+*.out
+*.prof
+
+# Go workspace file
+go.work
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project data
+lhd.db
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Local config
+lhd.yaml
+hosts.yaml
+
+# Local state
+.local/
+
+# Release artifacts
+dist/

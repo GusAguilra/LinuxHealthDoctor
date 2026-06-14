@@ -1,0 +1,197 @@
+version: "1.0"
+domain: cpu
+rules:
+  - id: cpu.high_usage
+    name: "High CPU Usage"
+    severity: warning
+    conditions:
+      - fact_name: cpu.usage_percent
+        operator: gt
+        value: 80
+    conclusion: "CPU usage exceeds normal threshold (80%) — investigate top processes"
+    certainty: 0.85
+    remediations:
+      - step: 1
+        action: "Identify top processes consuming CPU"
+        command: "ps aux --sort=-%cpu | head -10"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Check for runaway or zombie processes"
+        command: "top -b -n1 -o %CPU | head -20"
+        priority: 2
+        risk: low
+      - step: 3
+        action: "Review system logs for anomalies"
+        command: "journalctl --since '10 minutes ago' --priority=err --no-pager | tail -30"
+        priority: 3
+        risk: low
+
+  - id: cpu.critical_usage
+    name: "Critical CPU Usage"
+    severity: critical
+    conditions:
+      - fact_name: cpu.usage_percent
+        operator: gt
+        value: 95
+    conclusion: "CPU usage is critically high (>95%) — system may become unresponsive"
+    certainty: 0.95
+    remediations:
+      - step: 1
+        action: "Immediately identify the most CPU-intensive processes"
+        command: "ps aux --sort=-%cpu | head -10"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Check for fork bombs or runaway process trees"
+        command: "ps -eo pid,ppid,pgid,cmd,%cpu --sort=-%cpu | head -20"
+        priority: 2
+        risk: low
+      - step: 3
+        action: "Consider restarting misbehaving services"
+        command: "systemctl list-units --state-running | head -20"
+        priority: 3
+        risk: medium
+      - step: 4
+        action: "Kill the most offending process if necessary"
+        command: "kill -TERM $(ps aux --sort=-%cpu | awk 'NR==2{print $2}')"
+        priority: 4
+        risk: high
+        auto_fixable: false
+
+  - id: cpu.load_spike
+    name: "CPU Load Spike Detected"
+    severity: warning
+    conditions:
+      - fact_name: cpu.load_1m
+        operator: gt
+        value: 2.0
+      - fact_name: cpu.load_5m
+        operator: gt
+        value: 1.0
+    conclusion: "Recent CPU load spike detected — 1-minute load average significantly exceeds baseline"
+    certainty: 0.75
+    remediations:
+      - step: 1
+        action: "Identify process causing the recent spike"
+        command: "ps aux --sort=-%cpu | head -10"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Check system logs for recent activity or cron jobs"
+        command: "journalctl --since '5 minutes ago' --no-pager | tail -50"
+        priority: 2
+        risk: low
+      - step: 3
+        action: "Monitor load trend to confirm spike is transient"
+        command: "uptime && cat /proc/loadavg"
+        priority: 3
+        risk: low
+
+  - id: cpu.high_temperature
+    name: "High CPU Temperature"
+    severity: warning
+    conditions:
+      - fact_name: cpu.temperature
+        operator: gt
+        value: 75
+    conclusion: "CPU temperature exceeds 75°C — cooling may be inadequate"
+    certainty: 0.80
+    remediations:
+      - step: 1
+        action: "Check current CPU temperature and sensor readings"
+        command: "sensors"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Inspect CPU frequency scaling and cooling status"
+        command: "cpupower frequency-info && cat /sys/devices/system/cpu/cpu*/thermal_throttle/core_throttle_count 2>/dev/null"
+        priority: 2
+        risk: low
+      - step: 3
+        action: "Improve system cooling before throttling begins"
+        command: "sudo pwmconfig 2>/dev/null || echo 'Manual fan control not available'"
+        priority: 3
+        risk: medium
+
+  - id: cpu.critical_temperature
+    name: "CPU Overheating"
+    severity: critical
+    conditions:
+      - fact_name: cpu.temperature
+        operator: gt
+        value: 85
+    conclusion: "CPU is overheating (>85°C) — thermal throttling may be active or imminent"
+    certainty: 0.95
+    remediations:
+      - step: 1
+        action: "Check CPU temperature and throttling status immediately"
+        command: "sensors && dmesg | grep -i thermal | tail -10"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Reduce CPU frequency to prevent thermal damage"
+        command: "cpupower frequency-set --governor powersave"
+        priority: 2
+        risk: medium
+        auto_fixable: true
+      - step: 3
+        action: "Inspect cooling system (heatsink, fans, thermal paste)"
+        command: "pwmconfig && fancontrol"
+        priority: 3
+        risk: medium
+      - step: 4
+        action: "Shut down or suspend if temperature continues to rise"
+        command: "systemctl suspend"
+        priority: 4
+        risk: high
+        auto_fixable: false
+
+  - id: cpu.governor_performance
+    name: "CPU Governor Set to Performance"
+    severity: info
+    conditions:
+      - fact_name: cpu.governor
+        operator: eq
+        value: 1
+    conclusion: "CPU frequency governor is set to 'performance' — may consume more power than necessary"
+    certainty: 0.90
+    remediations:
+      - step: 1
+        action: "Check current CPU governor settings"
+        command: "cpupower frequency-info --governors"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Switch to powersave or ondemand governor for power efficiency"
+        command: "cpupower frequency-set --governor ondemand"
+        priority: 2
+        risk: low
+        auto_fixable: true
+
+  - id: cpu.vulnerability_unmitigated
+    name: "Unmitigated CPU Vulnerability"
+    severity: critical
+    conditions:
+      - fact_name: cpu.vulnerabilities
+        operator: gt
+        value: 0
+    conclusion: "Unmitigated CPU vulnerabilities detected — microcode or kernel update required"
+    certainty: 0.85
+    remediations:
+      - step: 1
+        action: "List unmitigated CPU vulnerabilities"
+        command: "grep . /sys/devices/system/cpu/vulnerabilities/*"
+        priority: 1
+        risk: low
+      - step: 2
+        action: "Check available microcode updates"
+        command: "cat /proc/cpuinfo | grep -i microcode | head -1 && apt list --upgradable 2>/dev/null | grep -i microcode || dnf list updates 2>/dev/null | grep -i microcode"
+        priority: 2
+        risk: low
+      - step: 3
+        action: "Update system to apply latest CPU microcode"
+        command: "apt update && apt install -y intel-microcode 2>/dev/null || dnf install -y microcode_ctl 2>/dev/null"
+        priority: 3
+        risk: medium
+        auto_fixable: true
