@@ -1,6 +1,6 @@
 # Binaries
 build/
-lhd
+/lhd
 lhd.exe
 *.exe
 *.exe~
