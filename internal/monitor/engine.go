@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/storage"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/storage"
 	gopsutil_cpu "github.com/shirou/gopsutil/v3/cpu"
 	gopsutil_disk "github.com/shirou/gopsutil/v3/disk"
 	gopsutil_mem "github.com/shirou/gopsutil/v3/mem"

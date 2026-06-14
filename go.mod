@@ -1,4 +1,4 @@
-module github.com/linuxhealthdoctor/lhd
+module github.com/GusAguilra/LinuxHealthDoctor
 
 go 1.22
 

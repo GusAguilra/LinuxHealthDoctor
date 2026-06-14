@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/linuxhealthdoctor/lhd/internal/fleet"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/fleet"
 	"github.com/spf13/cobra"
 )
 

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/plugin"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/plugin"
 )
 
 func init() {

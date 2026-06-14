@@ -8,7 +8,7 @@ import (
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/linuxhealthdoctor/lhd/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
 )
 
 type Tab int

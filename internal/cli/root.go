@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/linuxhealthdoctor/lhd/internal/config"
-	"github.com/linuxhealthdoctor/lhd/pkg/version"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/config"
+	"github.com/GusAguilra/LinuxHealthDoctor/pkg/version"
 	"github.com/spf13/cobra"
 )
 

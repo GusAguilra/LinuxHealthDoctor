@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/monitor"
-	"github.com/linuxhealthdoctor/lhd/internal/storage"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/monitor"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/storage"
 	"github.com/spf13/cobra"
 )
 

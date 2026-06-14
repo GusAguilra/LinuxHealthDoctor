@@ -3,7 +3,7 @@ package plugin
 import (
 	"context"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
 )
 
 type Checker interface {

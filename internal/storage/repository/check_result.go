@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/storage"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/storage"
 )
 
 type CheckResultRepository struct {

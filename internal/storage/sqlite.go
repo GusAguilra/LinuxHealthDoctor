@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/baseline"
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/snapshot"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/baseline"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/snapshot"
 
 	_ "modernc.org/sqlite"
 )

@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
 )
 
 type ExecutionContext struct {

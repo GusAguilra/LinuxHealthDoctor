@@ -19,8 +19,8 @@ Linux Health Doctor is a **local-first**, **offline-first**, **zero-telemetry** 
 ### From source
 
 ```bash
-git clone https://github.com/linuxhealthdoctor/lhd.git
-cd lhd
+git clone https://github.com/GusAguilra/LinuxHealthDoctor.git
+cd LinuxHealthDoctor
 go build -o lhd ./cmd/lhd
 sudo cp lhd /usr/local/bin/
 ```
@@ -28,7 +28,7 @@ sudo cp lhd /usr/local/bin/
 ### Using Go
 
 ```bash
-go install github.com/linuxhealthdoctor/lhd/cmd/lhd@latest
+go install github.com/GusAguilra/LinuxHealthDoctor/cmd/lhd@latest
 ```
 
 ## Quick Start

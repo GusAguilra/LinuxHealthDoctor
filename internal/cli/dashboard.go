@@ -7,9 +7,9 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/dashboard"
-	"github.com/linuxhealthdoctor/lhd/internal/plugin"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/dashboard"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/plugin"
 	"github.com/spf13/cobra"
 )
 

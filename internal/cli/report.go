@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/report"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/report"
 	"github.com/spf13/cobra"
 )
 

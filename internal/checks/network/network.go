@@ -7,8 +7,8 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
-	"github.com/linuxhealthdoctor/lhd/internal/plugin"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/plugin"
 	"github.com/shirou/gopsutil/v3/net"
 )
 

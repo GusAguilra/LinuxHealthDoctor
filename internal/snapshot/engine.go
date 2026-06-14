@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
 )
 
 type Engine struct {

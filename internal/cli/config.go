@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/linuxhealthdoctor/lhd/internal/config"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/config"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )

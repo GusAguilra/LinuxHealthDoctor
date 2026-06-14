@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/linuxhealthdoctor/lhd/internal/baseline"
-	"github.com/linuxhealthdoctor/lhd/internal/core"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/baseline"
+	"github.com/GusAguilra/LinuxHealthDoctor/internal/core"
 )
 
 type Fact struct {
